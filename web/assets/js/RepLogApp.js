@@ -35,9 +35,9 @@
             $.ajax({
                 url: Routing.generate('rep_log_list'),
             }).then(data => {
-                $.each(data.items, (key, repLog) => {
+                for (let repLog of data.items) {
                     this._addRow(repLog);
-                });
+                };
             })
         }
 
@@ -93,9 +93,9 @@
 
             const $form = $(e.currentTarget);
             const formData = {};
-            $.each($form.serializeArray(), (key, fieldData) => {
-                formData[fieldData.name] = fieldData.value
-            });
+            for (let fieldData of $form.serializeArray()) {
+                formData[fieldData.name] = fieldData.value;
+            };
 
             this._saveRepLog(formData)
             .then( (data) => {
@@ -133,19 +133,19 @@
             this._removeFormErrors();
             const $form = this.$wrapper.find(RepLogApp._selectors.newRepForm);
 
-            $form.find(':input').each((index, element) => {
+            for (element of $form.find(':input')) {
                 const fieldName = $(element).attr('name');
                 const $wrapper = $(element).closest('.form-group');
                 if (!errorData[fieldName]) {
                     // no error!
-                    return;
+                    continue;
                 }
 
                 const $error = $('<span class="js-field-error help-block"></span>');
                 $error.html(errorData[fieldName]);
                 $wrapper.append($error);
                 $wrapper.addClass('has-error');
-            });
+            };
         }
 
         _removeFormErrors() {
@@ -164,8 +164,8 @@
         _addRow(repLog) {
 
             //console.log(repLog);
-            let {id, itemLabel, reps, totallyMadeUpKey='whatever!'} = repLog;
-            console.log(id, itemLabel, reps, totallyMadeUpKey)  ;
+            //let {id, itemLabel, reps, totallyMadeUpKey='whatever!'} = repLog;
+            //console.log(id, itemLabel, reps, totallyMadeUpKey)  ;
 
             const tplText = $('#js-rep-log-row-template').html();
             const tpl = _.template(tplText);
@@ -200,9 +200,9 @@
 
         static _calculateTotalWeight($elements) {
             let totalWeight = 0;
-            $elements.each( (index, element) => {
+            for (let element of $elements) {
                 totalWeight += $(element).data('weight');
-            });
+            };
 
             return totalWeight;
         }
