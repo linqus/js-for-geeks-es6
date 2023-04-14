@@ -1,6 +1,15 @@
-const favoriteFoot = 'gelato';
-const iLoveFood = 'The year is '+ (new Date).getFullYear()+' and my favourite food is '+favoriteFoot+'.';
+let food = {};
 
-const iLoveFood2 = `The year is ${(new Date).getFullYear()} and my favourite food is ${favoriteFoot}.`;
+food.italian = 'gelato';
+food.mexican = 'torta';
+food.canadian = 'poutine';
 
-console.log(iLoveFood2);
+console.log(food.italian);
+
+let foods = new WeakMap();
+foods.set(['italian'], 'gelato');
+foods.set(['mexican'], 'torta');
+foods.set(['canadian'], 'poutine');
+foods.set([food],'nic');
+console.log(foods);
+console.log(foods.has([]), foods.get([food]));
